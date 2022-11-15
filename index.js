@@ -13,7 +13,7 @@ const pagination = document.querySelector('[data-js="pagination"]');
 // States
 const maxPage = 42;
 const page = 1;
-const searchQuery = "";
+let searchQuery = "Test";
 let pageIndex = 1;
 let currentPage = `https://rickandmortyapi.com/api/character?page=${pageIndex}`;
 
@@ -75,4 +75,10 @@ nextButton.addEventListener("click", () => {
 
   fetchCharacters(currentPage);
   pagination.textContent = `${pageIndex}/${maxPage}`;
+});
+
+searchBar.addEventListener("submit", (Event) => {
+  Event.preventDefault();
+  searchQuery = searchBarContainer;
+  console.log(Event.target.elements.query.value);
 });
