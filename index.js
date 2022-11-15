@@ -15,5 +15,40 @@ const maxPage = 1;
 const page = 1;
 const searchQuery = "";
 
-console.log(cardContainer);
-createCharacterCard();
+async function fetchCharacters() {
+  try {
+    const response = await fetch("https://rickandmortyapi.com/api/character");
+    const data = await response.json();
+    // console.log(data.results);
+
+    if (response.ok) {
+      cardContainer.innerHTML = "";
+      const people = data.results;
+      people.forEach((element) => {
+        const name = element.name;
+        const src = element.image;
+        const status = element.status;
+        const type = element.type;
+        const occ = element.episode.length;
+
+        createCharacterCard(src, name, status, type, occ);
+
+        // cardContainer.append();
+      });
+
+      // Success (Good Response)
+      return data;
+    } else {
+      // Failure (Bad Response)
+      console.error("Bad Response");
+    }
+  } catch (error) {
+    // Failure (Network error, etc)
+    console.error("An Error occurred");
+  }
+}
+
+fetchCharacters();
+// cardContainer.innerHTML = "";
+// createCharacterCard();
+// createCharacterCard();
